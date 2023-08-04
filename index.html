@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<link href="./css/style.css" rel="stylesheet" type="text/css" />
+		<meta charset="utf-8" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope&display=swap" rel="stylesheet" />
+		<title>Les petits plats</title>
+	</head>
+	<body>
+		<header class="header">
+			<img src="./assets/icons/Logo.png" alt="Logo" class="logo" />
+			<div class="header-container">
+				<h1>
+					Cherchez parmi plus de 1500 recettes <br />
+					du quotidien, simples et délicieuses
+				</h1>
+				<form action="/rechercher" method="get">
+					<div class="search-container">
+						<input id="searchInput" type="text" name="q" placeholder="Rechercher une recette, un ingredient, ..." />
+						<div id="clearSearch" class="clear-search"></div>
+						<div class="search-button"></div>
+					</div>
+				</form>
+			</div>
+		</header>
+		<main id="main">
+            <!-- filtres -->
+			<div class="search-filters">
+				<div id="ingredients-container" class="container-filter">
+					<button class="dropdown-toggle initial-button" type="button" id="ingredientsDropdown">
+						Ingrédients<img src="./assets/icons/arrow.svg" class="arrow-down" alt="Flèche vers le bas" />
+					</button>
+				</div>
+				<div id="appliance-container" class="container-filter">
+					<button class="dropdown-toggle initial-button" type="button" id="applianceDropdown">
+						Appareils<img src="./assets/icons/arrow.svg" class="arrow-down" alt="Flèche vers le bas" />
+					</button>
+				</div>
+				<div id="ustensils-container" class="container-filter">
+					<button class="dropdown-toggle initial-button" type="button" id="ustensilsDropdown">
+						Ustensiles<img src="./assets/icons/arrow.svg" class="arrow-down" alt="Flèche vers le bas" />
+					</button>
+				</div>
+			</div>            
+			<div id="selectionContainer" class="selectionContainer"></div>
+            <!-- nombre de résultats -->
+			<p class="countContainer"><span id="recipeCount"></span> recettes</p>
+            <!-- liste des recettes -->
+			<div id="gallery-container" class="gallery-container"></div>
+		</main>
+        <script src="./scripts/models/recipe.js"></script>
+        <script src="./scripts/templates/recipeCard.js" ></script>
+		<script src="./scripts/pages/index.js" type="module"></script>
+	</body>
+</html>
