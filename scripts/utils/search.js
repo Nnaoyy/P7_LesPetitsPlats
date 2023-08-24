@@ -16,36 +16,28 @@ function recipesCount() {
 
 // fonction de recherche principale
 function principalSearch(searchTerm) {
-	for (let i = 0; i < recipesToDisplay.length; i++) {
-		const recipe = recipesToDisplay[i];
+	const lowercaseSearchTerm = searchTerm.toLowerCase();
+
+	recipesToDisplay = recipes.filter((recipe) => {
 		const recipeTitle = recipe.name.toLowerCase();
 		const recipeDescription = recipe.description.toLowerCase();
-		const recipeIngredients = [];
+		const recipeIngredients = recipe.ingredients.map((ingredient) => ingredient.ingredient.toLowerCase());
 
-		for (let j = 0; j < recipe.ingredients.length; j++) {
-			const ingredient = recipe.ingredients[j];
-			recipeIngredients.push(ingredient.ingredient.toLowerCase());
-		}
+		//on cherche si la recherche est dans le titre ou la description
+		const matchesTitleOrDescription =
+			recipeTitle.includes(lowercaseSearchTerm) || recipeDescription.includes(lowercaseSearchTerm);
 
-		let shouldDisplay = false;
+		//on cherche si la recherche est dans les ingrédients
+		const matchesIngredient = recipeIngredients.some((ingredient) => ingredient.includes(lowercaseSearchTerm));
 
-		if (recipeTitle.includes(searchTerm.toLowerCase()) || recipeDescription.includes(searchTerm.toLowerCase())) {
-			shouldDisplay = true;
+		if (matchesTitleOrDescription || matchesIngredient) {
+			return true; // si la recherche est dans le titre la description ou les ingrédients on garde la recette
 		} else {
-			for (let j = 0; j < recipeIngredients.length; j++) {
-				const ingredient = recipeIngredients[j];
-				if (ingredient.includes(searchTerm.toLowerCase())) {
-					shouldDisplay = true;
-					break;
-				}
-			}
+			removedRecipes[lowercaseSearchTerm] = removedRecipes[lowercaseSearchTerm] || [];
+			removedRecipes[lowercaseSearchTerm].push(recipe);
+			return false; // si la recherche n'est pas trouvé on retire la recette de la liste(tableau)
 		}
-
-		if (!shouldDisplay) {
-			recipesToDisplay.splice(i, 1);
-			i--;
-		}
-	}
+	});
 }
 // fonctions de recherche sur les ingrédients, les appareils et les ustensiles
 function ingredientsSearch(searchTerm) {
